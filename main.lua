@@ -57,11 +57,17 @@ end
 local scene = lg.newCanvas()
 
 function love.load()
-
+	lg.setNewFont("assets/font.ttf", 16)
 end
 
+maxdt = 1
 function love.update(dt)
-	play:update(dt)
+	if dt > 0 then
+        local tempdt = dt --you should rename this to something more useful, but for the sake of examples
+         if tempdt > maxdt then tempdt = maxdt end
+        --do your update stuff with tempdt instead of dt
+		play:update(tempdt)
+    end
 end
 
 function love.draw()
@@ -72,4 +78,7 @@ function love.draw()
 	lg.setColor(255, 255, 255)
 	lg.draw(scene)
 	lg.setShader()
+	play:drawus() -- draw unshadered
+	lg.setColor(255, 255, 255)
+	lg.print("FPS: " .. love.timer.getFPS())
 end
