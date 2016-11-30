@@ -1,0 +1,434 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"poi",
+				"isPointinBounds"
+			],
+			[
+				"getRandom",
+				"love.math.getRandomSeed"
+			],
+			[
+				"line",
+				"love.graphics.line"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "main.lua",
+			"settings":
+			{
+				"buffer_size": 200,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "states/play.lua",
+			"settings":
+			{
+				"buffer_size": 1764,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "conf.lua",
+			"settings":
+			{
+				"buffer_size": 136,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Lua Love/LuaLove.sublime-build",
+					""
+				],
+				[
+					"Packages/Lua Love/LuaLove.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/Lua Love/LuaLove.sublime-build",
+					"Love2D"
+				],
+				[
+					"Packages/Lua Love/LuaLove.sublime-build",
+					"ldoc: File"
+				],
+				[
+					"Packages/Lua Love/LuaLove.sublime-build",
+					"ldoc: Project"
+				]
+			],
+			[
+				"Packages/Lua Love/LuaLove.sublime-build",
+				"Love2D"
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 342.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"in stall",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"love2d",
+				"Build With: LuaLove - Love2D"
+			],
+			[
+				"Love2d",
+				"Build With: LuaLove - Love2D"
+			],
+			[
+				"project",
+				"Project: Add Folder"
+			],
+			[
+				"love",
+				"Set Syntax: Lua (Love)"
+			]
+		],
+		"width": 414.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/Lumaio/Desktop/Projects/Tron",
+		"/C/Users/Lumaio/Desktop/Projects/Tron/voxel"
+	],
+	"file_history":
+	[
+		"/C/Users/Lumaio/Desktop/Projects/Tron/voxel/model_viewer.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Campfire/lib/skiplist.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Campfire/states/settingsstate.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Campfire/conf.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Campfire/map.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Campfire/grass.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Campfire/lib/ualove/init.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Campfire/lib/o-ten-one/init.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Campfire/entities/player.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Campfire/lib/gamestate.lua",
+		"/C/Users/Lumaio/Documents/splashes-master/o-ten-one/init.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Campfire/lib/quicksort.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Campfire/entities/entitysorter.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Campfire/states/editorstate.lua",
+		"/C/Users/Lumaio/Documents/splashes-master/main.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Campfire/inventory.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Campfire/rain.lua",
+		"/C/Users/Lumaio/Documents/main.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Campfire/lib/light/light.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Campfire/states/playstate.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Campfire/main.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Campfire/lib/classy.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Campfire/entities/tree.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Campfire/states/journalstate.lua"
+	],
+	"find":
+	{
+		"height": 21.0
+	},
+	"find_in_files":
+	{
+		"height": 92.0,
+		"where_history":
+		[
+			"C:\\Users\\Lumaio\\Desktop\\Projects\\Campfire",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"rotation",
+			"islmt",
+			"makeNode",
+			"value=",
+			"expected_size",
+			"log",
+			"for i=1,#self.entities do local v = self.entities[i]",
+			"delete",
+			"0",
+			"8",
+			"0",
+			"8",
+			"lg",
+			"self.x",
+			")\n",
+			"love.quit",
+			"end",
+			"Caption",
+			"self.logo.sprite",
+			"self.logo",
+			"drawus",
+			"self.fogs",
+			"layer.velx*200\n\t\t\tself.s = m",
+			"-t",
+			"/t",
+			"*t",
+			"uv",
+			"iGlobalTime",
+			"utputSize.",
+			"scanline",
+			"rain",
+			"32",
+			"2",
+			"scene:getHeight",
+			"process",
+			"for i,v in ipairs",
+			"for i,v in ipairs(self.entities) do",
+			" for i,v in ipairs",
+			" d",
+			"d",
+			"5",
+			" d ",
+			".x",
+			".y",
+			"math.random(1, #self.blades)",
+			"sorter:",
+			"v",
+			"pnts",
+			"\nrequire (\"lib.imgui\")",
+			"new",
+			"self",
+			"pos"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"for i,v in self.entities:ipairs() do",
+			"for i,v in self.entities:iter() do",
+			"5",
+			"for i=1,#self.entities do local v = self.entities[i]",
+			"[1]",
+			"[2]"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "main.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 200,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								49,
+								49
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/Lua Love/LuaLove.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "states/play.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1764,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								375,
+								375
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua Love/LuaLove.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "conf.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 136,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								132,
+								132
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua Love/LuaLove.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 19.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 100.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/Lua Love/LuaLove.sublime-build",
+	"project": "Tron.sublime-project",
+	"replace":
+	{
+		"height": 38.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 174.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
