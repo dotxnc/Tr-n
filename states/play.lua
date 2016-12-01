@@ -2,7 +2,9 @@ local model_viewer = require ("lib.voxel.model_viewer")
 local skiplist = require ("lib.skiplist")
 local socket = require ("socket")
 local player = require ("entities.player")
-local sock = require ("lib.sock")
+local trail = model_viewer:new(love.filesystem.newFile("assets/trail.png"))
+require ("server")
+require ("client")
 math.randomseed(socket.gettime()*1000)
 
 local play = {
@@ -19,46 +21,23 @@ local play = {
 globaltrails = nil;
 
 localplayer = player:new(100, 100, "Lumaio")
-
-local clients = {}
-isserver = false
-server = nil
-client = nil
-
-function start_server()
-	server = sock.newServer("*", 27015)
-	server:on("connect", function(data, client)
-	          for i,v in ipairs(clients) do client:emit("newplayer") end
-	          table.insert(clients, client)
-	          print("server added new player")
-	end)
-	print("initialized server")
-	isserver = true
-end
-
-function start_client()
-	client = sock.newClient("localhost", 27015)
-	client:on("connect", function(data) print("connected to server") end)
-	client:on("disconnect", function(data) print("disconnected to server") end)
-	client:on("newplayer", function(data) if not isserver then table.insert(clients, data) print("Client added new player") end end)
-	client:connect()
-	print("initialized client?")
-end
+localplayer.isLocalPlayer = true
 
 function play:init()
 	globaltrails = skiplist.new(512)
 	return play
 end
 
-local time = 0
-local ctime = 0
-local rtime = 0
 function play:update(dt)
+	update_client()
+	update_server()
+
 	localplayer:input(dt)
 	localplayer:update(dt)
 
-	if server then server:update(dt) end
-	if client then client:update(dt) end
+	for i,v in ipairs(getplayers_client()) do
+		v.player:update(dt)
+	end
 end
 
 function play:draw()
@@ -68,7 +47,8 @@ function play:draw()
 	for i,v in globaltrails:ipairs() do
 		v.timer = v.timer + love.timer.getDelta()
 		lg.setColor(v.color[1], v.color[2], v.color[3], 255-255*(v.timer/3))
-		v.model:drawModel(v.x, v.y)
+		trail.rotation = v.rotation
+		trail:drawModel(v.x, v.y)
 		if v.timer > 3 then
 			v.timer = 3
 			globaltrails:delete(v)
@@ -76,15 +56,23 @@ function play:draw()
 	end
 
 	localplayer:draw()
+	for i,v in ipairs(getplayers_client()) do
+		v.player:draw()
+	end
 end
 
 function play:drawus()
 	localplayer:drawus()
+	if server then lg.print("SERVER", 0, 50) end
+	if client then lg.print("CLIENT", 0, 75) end
+	for i,v in ipairs(getplayers_client()) do
+		v.player:drawus()
+	end
 end
 
 function play:keypressed(key)
-	if key == "f1" then start_server() end
-	if key == "f2" then start_client() end
+	if key == "f1" then start_server(27015) end
+	if key == "f2" then connect_client("localhost", 27015) end
 end
 
 

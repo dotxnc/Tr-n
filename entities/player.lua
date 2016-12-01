@@ -15,20 +15,20 @@ function player:input(dt)
 end
 
 function player:update(dt)
+	if self.speed > 550 then self.speed = 650 end
 	self.time = self.time + love.timer.getDelta()
 	self.ctime = self.ctime + love.timer.getDelta()
-	local spawntime = 0.05/(self.speed*love.timer.getDelta())
+	local spawntime = 0.05/(self.speed*1/60)
 	if self.time > spawntime then
-		time = 0
+		self.time = 0
 		local trail = {
-		             model = model_viewer:new(love.filesystem.newFile("assets/trail.png"));
 		             x = self.x - (math.cos(math.rad(self.rotation-90)) * 16);
 		             y = self.y + 16 - (math.sin(math.rad(self.rotation-90)) * 16);
 		             color = {self.color[1], self.color[2], self.color[3]};
 		             timer = 0;
 		             id = #globaltrails+1;
 		             }
-		trail.model.rotation = self.rotation 
+		trail.rotation = self.rotation 
 		globaltrails:insert(trail)
 	end
 
@@ -65,21 +65,23 @@ end
 
 function player:draw()
 	self.gracing = false
+
 	for i,v in globaltrails:ipairs() do
 		-- Do collision detection
-		local x1,y1 = v.x - math.cos(math.rad(v.model.rotation-90))*16, v.y - math.sin(math.rad(v.model.rotation-90))*16
-		local x2,y2 = v.x + math.cos(math.rad(v.model.rotation-90))*16, v.y + math.sin(math.rad(v.model.rotation-90))*16
+		local x1,y1 = v.x - math.cos(math.rad(v.rotation-90))*16, v.y - math.sin(math.rad(v.rotation-90))*16
+		local x2,y2 = v.x + math.cos(math.rad(v.rotation-90))*16, v.y + math.sin(math.rad(v.rotation-90))*16
 		local p1,p2 = self.x - (math.cos(math.rad(self.rotation-90)) * 16), self.y + 16 - (math.sin(math.rad(self.rotation-90)) * 16)
 		local p3,p4 = self.x + (math.cos(math.rad(self.rotation-90)) * 16), self.y + 16 + (math.sin(math.rad(self.rotation-90)) * 16)
 		lg.setColor(0, 255, 0)
-		if checkIntersect({x=x1,y=y1}, {x=x2, y=y2}, {x=p1, y=p2}, {x=p3, y=p4}) and v.timer > 0.5 then
+		if self.isLocalPlayer then
 			if math.dist(v.x, v.y, self.x, self.y) < 30 then
-				self.x = 100
-				self.y = 100
-				self.speed = 250
-				self.turnspeed = 350
-			else
-				--table.insert(self.output, {"you hit something but nothing was there?", {math.random(100, 255), math.random(100, 255), math.random(100, 255)}})
+				if checkIntersect({x=x1,y=y1}, {x=x2, y=y2}, {x=p1, y=p2}, {x=p3, y=p4}) and v.timer > 0.5 then
+					self.x = 100
+					self.y = 100
+					self.speed = 250
+					self.turnspeed = 350
+				else
+				end
 			end
 		end
 		
@@ -97,6 +99,7 @@ function player:drawus()
 
 	lg.setColor(255-self.color[1], 255-self.color[2]/2, 255-self.color[3]/2)
 	lg.print(self.name, math.floor(self.x)-lg.getFont():getWidth(self.name)/2, math.floor(self.y)-32)
+	lg.print(self.speed, 0, 50)
 end
 
 

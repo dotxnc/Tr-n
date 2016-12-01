@@ -1,6 +1,7 @@
 WINDOW_W = 1280
 WINDOW_H = 720
-lg = love.graphics
+
+lg = love.graphics--require ("lib.autobatch")
 local play = require ("states.play")
 
 local bloom = lg.newShader[[
@@ -60,10 +61,14 @@ local scene = lg.newCanvas()
 
 function love.load()
 	lg.setNewFont("assets/font.ttf", 16)
+	min_dt = 1/60
+	next_time = love.timer.getTime()
 end
 
 maxdt = 1
 function love.update(dt)
+	next_time = next_time + min_dt
+
 	if dt > 0 then
         local tempdt = dt --you should rename this to something more useful, but for the sake of examples
          if tempdt > maxdt then tempdt = maxdt end
@@ -84,6 +89,13 @@ function love.draw()
 	play:drawus() -- draw unshadered
 	lg.setColor(255, 255, 255)
 	lg.print("FPS: " .. love.timer.getFPS())
+
+	local cur_time = love.timer.getTime()
+	if next_time <= cur_time then
+		next_time = cur_time
+		return
+	end
+	love.timer.sleep(next_time - cur_time)
 end
 
 function love.keypressed(key)
