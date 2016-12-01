@@ -23,8 +23,8 @@ function connect_client(ip, port, name)
 	client:on("position", function(data)
 	          for i,v in ipairs(players) do
 	          	if v.uid == data.uid then
-	          		v.player.x = data.x
-	          		v.player.y = data.y
+	          		v.player.nx = data.x
+	          		v.player.ny = data.y
 	          		v.player.rotation = data.rotation
 	          	end
 	          end

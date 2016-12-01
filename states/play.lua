@@ -72,8 +72,6 @@ end
 
 function play:drawus()
 	localplayer:drawus()
-	if server then lg.print("SERVER", 0, 50) end
-	if client then lg.print("CLIENT", 0, 75) end
 	for i,v in ipairs(getplayers_client()) do
 		v.player:drawus()
 	end
@@ -88,6 +86,7 @@ function play:drawus()
 
 	imgui.Render()
 	localplayer.name = playername
+	lg.print(globaltrails.size, 0, 20)
 end
 
 function play:mousepressed(x, y, b)

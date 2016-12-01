@@ -1,7 +1,7 @@
 local model_viewer = require ("lib.voxel.model_viewer")
 
 local player = {
-	x,y,color,dcolor,rotation=0,speed=250,turnspeed=350,model,name,time=0,ctime=0,rtime=0,gracing=false
+	x,y,color,dcolor,rotation=0,speed=250,turnspeed=350,model,name,time=0,ctime=0,rtime=0,gracing=false,nx=0,ny=0
 }
 --                RED          ORANGE         YELLOW         GREEN        BLUE         INDIGO        VIOLET
 local rainbow = {{255, 0, 0}, {255, 127, 0}, {255, 255, 0}, {0, 255, 0}, {0, 0, 255}, {75, 0, 130}, {148, 0, 211}}
@@ -35,6 +35,9 @@ function player:update(dt)
 	if self.isLocalPlayer then
 		self.x = self.x + math.cos(math.rad(self.rotation-90)) * self.speed*dt
 		self.y = self.y + math.sin(math.rad(self.rotation-90)) * self.speed*dt
+	else
+		self.x = lerp(self.nx, self.x, 0.5)
+		self.y = lerp(self.ny, self.y, 0.5)
 	end
 
 	self.model.rotation = self.rotation
@@ -74,13 +77,13 @@ function player:draw()
 
 	for i,v in globaltrails:ipairs() do
 		-- Do collision detection
-		local x1,y1 = v.x - math.cos(math.rad(v.rotation-90))*16, v.y - math.sin(math.rad(v.rotation-90))*16
-		local x2,y2 = v.x + math.cos(math.rad(v.rotation-90))*16, v.y + math.sin(math.rad(v.rotation-90))*16
-		local p1,p2 = self.x - (math.cos(math.rad(self.rotation-90)) * 16), self.y + 20 - (math.sin(math.rad(self.rotation-90)) * 20)
-		local p3,p4 = self.x + (math.cos(math.rad(self.rotation-90)) * 16), self.y + 16 + (math.sin(math.rad(self.rotation-90)) * 16)
 		lg.setColor(0, 255, 0)
 		if self.isLocalPlayer then
 			if math.dist(v.x, v.y, self.x, self.y) < 30 then
+				local x1,y1 = v.x - math.cos(math.rad(v.rotation-90))*16, v.y - math.sin(math.rad(v.rotation-90))*16
+				local x2,y2 = v.x + math.cos(math.rad(v.rotation-90))*16, v.y + math.sin(math.rad(v.rotation-90))*16
+				local p1,p2 = self.x - (math.cos(math.rad(self.rotation-90)) * 16), self.y + 20 - (math.sin(math.rad(self.rotation-90)) * 20)
+				local p3,p4 = self.x + (math.cos(math.rad(self.rotation-90)) * 16), self.y + 16 + (math.sin(math.rad(self.rotation-90)) * 16)
 				if checkIntersect({x=x1,y=y1}, {x=x2, y=y2}, {x=p1, y=p2}, {x=p3, y=p4}) and v.timer > 0.1 then
 					self.x = 100
 					self.y = 100
