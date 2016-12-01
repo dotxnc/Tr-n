@@ -26,7 +26,6 @@ function connect_client(ip, port)
 	          		v.player.x = data.x
 	          		v.player.y = data.y
 	          		v.player.rotation = data.rotation
-	          		print("setting player position")
 	          	end
 	          end
 	          end)

@@ -69,17 +69,19 @@ end
 
 function player:draw()
 	self.gracing = false
+	lg.setColor(self.color)
+	self.model:drawModel(self.x, self.y)
 
 	for i,v in globaltrails:ipairs() do
 		-- Do collision detection
 		local x1,y1 = v.x - math.cos(math.rad(v.rotation-90))*16, v.y - math.sin(math.rad(v.rotation-90))*16
 		local x2,y2 = v.x + math.cos(math.rad(v.rotation-90))*16, v.y + math.sin(math.rad(v.rotation-90))*16
-		local p1,p2 = self.x - (math.cos(math.rad(self.rotation-90)) * 16), self.y + 16 - (math.sin(math.rad(self.rotation-90)) * 16)
+		local p1,p2 = self.x - (math.cos(math.rad(self.rotation-90)) * 16), self.y + 20 - (math.sin(math.rad(self.rotation-90)) * 20)
 		local p3,p4 = self.x + (math.cos(math.rad(self.rotation-90)) * 16), self.y + 16 + (math.sin(math.rad(self.rotation-90)) * 16)
 		lg.setColor(0, 255, 0)
 		if self.isLocalPlayer then
 			if math.dist(v.x, v.y, self.x, self.y) < 30 then
-				if checkIntersect({x=x1,y=y1}, {x=x2, y=y2}, {x=p1, y=p2}, {x=p3, y=p4}) and v.timer > 0.5 then
+				if checkIntersect({x=x1,y=y1}, {x=x2, y=y2}, {x=p1, y=p2}, {x=p3, y=p4}) and v.timer > 0.1 then
 					self.x = 100
 					self.y = 100
 					self.speed = 250
@@ -95,8 +97,6 @@ function player:draw()
 		end
 	end
 
-	lg.setColor(self.color)
-	self.model:drawModel(self.x, self.y)
 end
 
 function player:drawus()
