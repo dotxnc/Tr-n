@@ -1,6 +1,8 @@
 local model_viewer = require ("lib.voxel.model_viewer")
 local skiplist = require ("lib.skiplist")
 local socket = require ("socket")
+local player = require ("entities.player")
+local sock = require ("lib.sock")
 math.randomseed(socket.gettime()*1000)
 
 local play = {
@@ -8,81 +10,81 @@ local play = {
 	x = 100;
 	y = 100;
 	rotation = 0;
-	color = {math.random(100, 255), math.random(100, 255), math.random(100, 255)};
-	trails = nil;
+	color = {};
+	dcolor = {};
+	speed = 250;
+	turnspeed = 350;
+	output = {};
 }
+globaltrails = nil;
 
+localplayer = player:new(100, 100, "Lumaio")
+
+local clients = {}
+isserver = false
+server = nil
+client = nil
+
+function start_server()
+	server = sock.newServer("*", 27015)
+	server:on("connect", function(data, client)
+	          for i,v in ipairs(clients) do client:emit("newplayer") end
+	          table.insert(clients, client)
+	          print("server added new player")
+	end)
+	print("initialized server")
+	isserver = true
+end
+
+function start_client()
+	client = sock.newClient("localhost", 27015)
+	client:on("connect", function(data) print("connected to server") end)
+	client:on("disconnect", function(data) print("disconnected to server") end)
+	client:on("newplayer", function(data) if not isserver then table.insert(clients, data) print("Client added new player") end end)
+	client:connect()
+	print("initialized client?")
+end
 
 function play:init()
-	self.model = model_viewer:new(love.filesystem.newFile("assets/bike.png"))
-	self.trails = skiplist.new(512)
+	globaltrails = skiplist.new(512)
 	return play
 end
 
 local time = 0
 local ctime = 0
+local rtime = 0
 function play:update(dt)
-	time = time + love.timer.getDelta()
-	ctime = ctime + love.timer.getDelta()
-	if time > 0.02 then
-		time = 0
-		local trail = {
-		             model = model_viewer:new(love.filesystem.newFile("assets/trail.png"));
-		             x = self.x - (math.cos(math.rad(self.rotation-90)) * 16);
-		             y = self.y + 16 - (math.sin(math.rad(self.rotation-90)) * 16);
-		             color = {self.color[1], self.color[2], self.color[3]};
-		             timer = 0;
-		             id = #self.trails+1;
-		             }
-		trail.model.rotation = self.rotation 
-		self.trails:insert(trail)
-	end
+	localplayer:input(dt)
+	localplayer:update(dt)
 
-	if love.keyboard.isDown("d") then self.rotation = self.rotation + 350*dt end
-	if love.keyboard.isDown("a") then self.rotation = self.rotation - 350*dt end
-
-	self.x = self.x + math.cos(math.rad(self.rotation-90)) * 250*dt
-	self.y = self.y + math.sin(math.rad(self.rotation-90)) * 250*dt
-
-	self.model.rotation = self.rotation
-	self.model.zoom = 0.5
-
-	if self.x+16 < 0 then self.x = WINDOW_W + 16 end
-	if self.x-16 > WINDOW_W then self.x = -16 end
-	if self.y+16 < 0 then self.y = WINDOW_H + 16 end
-	if self.y-16 > WINDOW_H then self.y = -16 end
+	if server then server:update(dt) end
+	if client then client:update(dt) end
 end
 
 function play:draw()
-	lg.clear(25, 25, 25)
-	for i,v in self.trails:ipairs() do
+	if #self.output > 10 then table.remove(self.output, 1) end
+	self.gracing = false
+	lg.clear(10, 10, 10)
+	for i,v in globaltrails:ipairs() do
 		v.timer = v.timer + love.timer.getDelta()
 		lg.setColor(v.color[1], v.color[2], v.color[3], 255-255*(v.timer/3))
 		v.model:drawModel(v.x, v.y)
 		if v.timer > 3 then
 			v.timer = 3
-			self.trails:delete(v)
+			globaltrails:delete(v)
 		end
-
-		-- Do collision detection
-		local x1,y1 = v.x - math.cos(math.rad(v.model.rotation-90))*16, v.y - math.sin(math.rad(v.model.rotation-90))*16
-		local x2,y2 = v.x + math.cos(math.rad(v.model.rotation-90))*16, v.y + math.sin(math.rad(v.model.rotation-90))*16
-		local p1,p2 = self.x - (math.cos(math.rad(self.rotation-90)) * 16), self.y + 16 - (math.sin(math.rad(self.rotation-90)) * 16)
-		local p3,p4 = self.x + (math.cos(math.rad(self.rotation-90)) * 16), self.y + 16 + (math.sin(math.rad(self.rotation-90)) * 16)
-		if checkIntersect({x=x1,y=y1}, {x=x2, y=y2}, {x=p1, y=p2}, {x=p3, y=p4}) and v.timer > 1 then
-			self.x = 100
-			self.y = 100
-		end
-		
 	end
 
-	lg.setColor(self.color)
-	self.model:drawModel(self.x, self.y)
+	localplayer:draw()
 end
 
 function play:drawus()
-	lg.setColor(255-self.color[1], 255-self.color[2]/2, 255-self.color[3]/2)
-	lg.print("LUMAIO", math.floor(self.x)-lg.getFont():getWidth("LUMAIO")/2, math.floor(self.y)-32)
+	localplayer:drawus()
+end
+
+function play:keypressed(key)
+	if key == "f1" then start_server() end
+	if key == "f2" then start_client() end
 end
 
 

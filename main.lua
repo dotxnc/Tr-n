@@ -53,6 +53,8 @@ function checkIntersect(l1p1, l1p2, l2p1, l2p2)
 	local function checkDir(pt1, pt2, pt3) return math.sign(((pt2.x-pt1.x)*(pt3.y-pt1.y)) - ((pt3.x-pt1.x)*(pt2.y-pt1.y))) end
 	return (checkDir(l1p1,l1p2,l2p1) ~= checkDir(l1p1,l1p2,l2p2)) and (checkDir(l2p1,l2p2,l1p1) ~= checkDir(l2p1,l2p2,l1p2))
 end
+function math.dist(x1,y1, x2,y2) return ((x2-x1)^2+(y2-y1)^2)^0.5 end
+function lerp(a,b,t) return a+(b-a)*t end
 
 local scene = lg.newCanvas()
 
@@ -70,15 +72,20 @@ function love.update(dt)
     end
 end
 
+
 function love.draw()
 	lg.setCanvas(scene)
 	play:draw()
 	lg.setCanvas()
-	lg.setShader(bloom)
 	lg.setColor(255, 255, 255)
+	lg.setShader(bloom)
 	lg.draw(scene)
 	lg.setShader()
 	play:drawus() -- draw unshadered
 	lg.setColor(255, 255, 255)
 	lg.print("FPS: " .. love.timer.getFPS())
+end
+
+function love.keypressed(key)
+	play:keypressed(key)
 end
