@@ -32,16 +32,20 @@ function player:update(dt)
 		globaltrails:insert(trail)
 	end
 
-	self.x = self.x + math.cos(math.rad(self.rotation-90)) * self.speed*dt
-	self.y = self.y + math.sin(math.rad(self.rotation-90)) * self.speed*dt
+	if self.isLocalPlayer then
+		self.x = self.x + math.cos(math.rad(self.rotation-90)) * self.speed*dt
+		self.y = self.y + math.sin(math.rad(self.rotation-90)) * self.speed*dt
+	end
 
 	self.model.rotation = self.rotation
 	self.model.zoom = 0.5
 
-	if self.x+16 < 0 then self.x = WINDOW_W + 16 end
-	if self.x-16 > WINDOW_W then self.x = -16 end
-	if self.y+16 < 0 then self.y = WINDOW_H + 16 end
-	if self.y-16 > WINDOW_H then self.y = -16 end
+	if self.isLocalPlayer then
+		if self.x+16 < 0 then self.x = WINDOW_W + 16 end
+		if self.x-16 > WINDOW_W then self.x = -16 end
+		if self.y+16 < 0 then self.y = WINDOW_H + 16 end
+		if self.y-16 > WINDOW_H then self.y = -16 end
+	end
 
 	if self.gracing then
 		self.rtime = self.rtime + dt

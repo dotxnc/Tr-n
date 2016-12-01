@@ -12,15 +12,15 @@ function start_server(port)
 	          local pd = {player=player:new(math.random(0, 1280), math.random(0, 720), data), client=client, uid=#clients+1}
 	          table.insert(clients, pd)
 	          client:emit("uniqueID", #clients)
-	          --client:emit("newplayer", {x=pd.player.x, y=pd.player.y, name=pd.player.name, uid=pd.uid})
+	          client:emit("newplayer", {x=pd.player.x, y=pd.player.y, name=pd.player.name, uid=pd.uid})
 
 	          for i,v in ipairs(clients) do
-	          	if v.client ~= client then
-	          		v.client:emit("newplayer", {x=v.player.x,y=v.player.y,name=v.player.name,uid=v.uid})
-	          	end
+	          	server:emitToAll("newplayer", {x=v.player.x,y=v.player.y,name=v.player.name,uid=v.uid})
 	          end
-	          print("FUUUUUUCK")
 	          server:log("info", "player created with uid " .. pd.uid)
+	          end)
+	server:on("position", function(data, client)
+	          server:emitToAll("position", data)
 	          end)
 end
 

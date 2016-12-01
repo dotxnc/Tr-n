@@ -16,10 +16,19 @@ function connect_client(ip, port)
 	          uniqueID = data
 	          end)
 	client:on("newplayer", function(data)
-	          table.insert(players, {player=player:new(data.x, data.y, data.name), uid=data.uid})
+	          if data.uid ~= uniqueID then
+	          	table.insert(players, {player=player:new(data.x, data.y, data.name), uid=data.uid})
+	          end
 	          end)
-	client:on("playerpos", function(data)
-
+	client:on("position", function(data)
+	          for i,v in ipairs(players) do
+	          	if v.uid == data.uid then
+	          		v.player.x = data.x
+	          		v.player.y = data.y
+	          		v.player.rotation = data.rotation
+	          		print("setting player position")
+	          	end
+	          end
 	          end)
 end
 
@@ -29,4 +38,10 @@ end
 
 function getplayers_client()
 	return players
+end
+
+function send_client(event, data)
+	if not client then return end
+	data.uid = uniqueID
+	client:emit(event, data)
 end
