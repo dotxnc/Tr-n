@@ -3,9 +3,15 @@ local skiplist = require ("lib.skiplist")
 local socket = require ("socket")
 local player = require ("entities.player")
 local trail = model_viewer:new(love.filesystem.newFile("assets/trail.png"))
+local imgui = require ("imgui")
 require ("server")
 require ("client")
 math.randomseed(socket.gettime()*1000)
+
+--- UI VARS
+local ip = "localhost"
+local port = "27015"
+local playername = "Test"
 
 local play = {
 	model = nil;
@@ -29,6 +35,7 @@ function play:init()
 end
 
 function play:update(dt)
+	imgui.NewFrame()
 	update_client()
 	update_server()
 
@@ -70,11 +77,43 @@ function play:drawus()
 	for i,v in ipairs(getplayers_client()) do
 		v.player:drawus()
 	end
+
+	lg.setColor(255, 255, 255)
+	imgui.Text("FUCK", 10, 10)
+	status, ip = imgui.InputText("IP", ip, 15)
+	status, port = imgui.InputText("PORT", port, 6)
+	status, playername = imgui.InputText("Player Name", playername, 32)
+	if (imgui.Button("Start Server")) then start_server(tonumber(port)) end
+	if (imgui.Button("Start Client")) then connect_client(ip, tonumber(port), playername) end
+
+	imgui.Render()
+	localplayer.name = playername
+end
+
+function play:mousepressed(x, y, b)
+	imgui.MousePressed(b)
+end
+
+function play:mousereleased(x, y, b)
+	imgui.MouseReleased(b)
+end
+
+function play:mousemoved(x, y)
+	imgui.MouseMoved(x, y)
 end
 
 function play:keypressed(key)
-	if key == "f1" then start_server(27015) end
-	if key == "f2" then connect_client("localhost", 27015) end
+	imgui.KeyPressed(key)
+	--if key == "f1" then start_server(27015) end
+	--if key == "f2" then connect_client("localhost", 27015) end
+end
+
+function play:keyreleased(key)
+	imgui.KeyReleased(key)
+end
+
+function play:textinput(text)
+	imgui.TextInput(text)
 end
 
 

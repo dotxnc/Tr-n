@@ -101,3 +101,23 @@ end
 function love.keypressed(key)
 	play:keypressed(key)
 end
+
+function love.keyreleased(key)
+	play:keyreleased(key)
+end
+
+function love.mousepressed(x, y, b)
+	play:mousepressed(x, y, b)
+end
+
+function love.mousereleased(x, y, b)
+	play:mousereleased(x, y, b)
+end
+
+function love.mousemoved(x, y)
+	play:mousemoved(x, y)
+end
+
+function love.textinput(text)
+	play:textinput(text)
+end

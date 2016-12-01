@@ -5,12 +5,12 @@ local players = {}
 local client = nil
 local uniqueID = -1
 
-function connect_client(ip, port)
+function connect_client(ip, port, name)
 	client = sock.newClient(ip, port)
 	client:connect()
 
 	client:on("connect", function(data)
-	          client:emit("login", "Lumaio")
+	          client:emit("login", name)
 	          end)
 	client:on("uniqueID", function(data)
 	          uniqueID = data
