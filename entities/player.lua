@@ -43,11 +43,13 @@ function player:update(dt)
 	self.model.rotation = self.rotation
 	self.model.zoom = 0.5
 
+	local loop = false
 	if self.isLocalPlayer then
-		if self.x+16 < 0 then self.x = WINDOW_W + 16 end
-		if self.x-16 > WINDOW_W then self.x = -16 end
-		if self.y+16 < 0 then self.y = WINDOW_H + 16 end
-		if self.y-16 > WINDOW_H then self.y = -16 end
+		if self.x+16 < 0 then self.x = WINDOW_W + 16 loop=true end
+		if self.x-16 > WINDOW_W then self.x = -16 loop=true end
+		if self.y+16 < 0 then self.y = WINDOW_H + 16 loop=true end
+		if self.y-16 > WINDOW_H then self.y = -16 loop=true end
+
 	end
 
 	if self.gracing then
@@ -68,6 +70,7 @@ function player:update(dt)
 		self.color[2] = lerp(self.color[2], self.dcolor[2], 0.1);
 		self.color[3] = lerp(self.color[3], self.dcolor[3], 0.1);
 	end
+	if self.isLocalPlayer then send_client("position", {x=self.x, y=self.y, rotation=self.rotation, force=loop}) end
 end
 
 function player:draw()
@@ -82,13 +85,16 @@ function player:draw()
 			if math.dist(v.x, v.y, self.x, self.y) < 30 then
 				local x1,y1 = v.x - math.cos(math.rad(v.rotation-90))*16, v.y - math.sin(math.rad(v.rotation-90))*16
 				local x2,y2 = v.x + math.cos(math.rad(v.rotation-90))*16, v.y + math.sin(math.rad(v.rotation-90))*16
-				local p1,p2 = self.x - (math.cos(math.rad(self.rotation-90)) * 16), self.y + 20 - (math.sin(math.rad(self.rotation-90)) * 20)
-				local p3,p4 = self.x + (math.cos(math.rad(self.rotation-90)) * 16), self.y + 16 + (math.sin(math.rad(self.rotation-90)) * 16)
-				if checkIntersect({x=x1,y=y1}, {x=x2, y=y2}, {x=p1, y=p2}, {x=p3, y=p4}) and v.timer > 0.1 then
+				local p1,p2 = self.x - (math.cos(math.rad(self.rotation-90)) * 10), self.y + 20 - (math.sin(math.rad(self.rotation-90)) * 10)
+				local p3,p4 = self.x + (math.cos(math.rad(self.rotation-90)) * 10), self.y + 16 + (math.sin(math.rad(self.rotation-90)) * 10)
+				lg.setColor(255, 0, 0)
+				lg.line(p1, p2, p3, p4)
+				if math.doLinesIntersect({x=x1,y=y1}, {x=x2, y=y2}, {x=p1, y=p2}, {x=p3, y=p4}) and v.timer > 0. then
 					self.x = 100
 					self.y = 100
 					self.speed = 250
 					self.turnspeed = 350
+					send_client("position", {x=self.x, y=self.y, rotation=self.rotation, force=true})
 				else
 				end
 			end

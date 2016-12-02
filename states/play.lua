@@ -46,7 +46,7 @@ function play:update(dt)
 		v.player:update(dt)
 	end
 
-	send_client("position", {x=localplayer.x, y=localplayer.y, rotation=localplayer.rotation})
+	--send_client("position", {x=localplayer.x, y=localplayer.y, rotation=localplayer.rotation})
 end
 
 function play:draw()
