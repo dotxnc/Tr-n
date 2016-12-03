@@ -1,6 +1,7 @@
 WINDOW_W = 1280
 WINDOW_H = 720
 
+love.graphics.setDefaultFilter("nearest", "nearest")
 lg = love.graphics--require ("lib.autobatch")
 local play = require ("states.play")
 

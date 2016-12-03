@@ -1,8 +1,7 @@
-local model_viewer = require ("lib.voxel.model_viewer")
+local lovox = require ("lib.lovox")
 local skiplist = require ("lib.skiplist")
 local socket = require ("socket")
 local player = require ("entities.player")
-local trail = model_viewer:new(love.filesystem.newFile("assets/trail.png"))
 local imgui = require ("imgui")
 require ("server")
 require ("client")
@@ -41,7 +40,7 @@ function play:init()
 end
 
 function play:update(dt)
-	table.sort(globaltrails, sortz)
+	--table.sort(globaltrails, sortz)
 	imgui.NewFrame()
 	update_client()
 	update_server()
@@ -52,6 +51,8 @@ function play:update(dt)
 	for i,v in ipairs(getplayers_client()) do
 		v.player:update(dt)
 	end
+
+	lovox.camera:update(dt)
 
 	--send_client("position", {x=localplayer.x, y=localplayer.y, rotation=localplayer.rotation})
 end
@@ -72,6 +73,8 @@ function play:draw()
 	for i,v in ipairs(getplayers_client()) do
 		v.player:draw()
 	end
+
+	lovox.camera:render()
 end
 
 function play:drawus()

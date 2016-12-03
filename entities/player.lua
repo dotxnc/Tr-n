@@ -1,4 +1,6 @@
-local model_viewer = require ("lib.voxel.model_viewer")
+local lovox = require ("lib.lovox")
+local ModelData = lovox.modelData
+
 local wall = require ("entities.wall")
 local projectile = require("entities.projectile")
 local player = {
@@ -13,7 +15,7 @@ player.__index = player
 function player:input(dt)
 	if love.keyboard.isDown("d") then self.rotation = self.rotation + self.turnspeed*dt end
 	if love.keyboard.isDown("a") then self.rotation = self.rotation - self.turnspeed*dt end
-	if love.mouse.isDown(1) and self.lastShoot > 0.25 then
+	if love.mouse.isDown(1) and self.lastShoot > 0.25 and not require("imgui").GetWantCaptureMouse() then
 		self.lastShoot = 0
 		table.insert(globaltrails, projectile:new(self.x+2-(math.cos(math.rad(self.rotation-90))), self.y+16-(math.sin(math.rad(self.rotation-90))), self.rotation, { self.color[1], self.color[2], self.color[3] }, self, self.speed))
 		send_client("shoot", {x=self.x+2-(math.cos(math.rad(self.rotation-90))), y = self.y+16-(math.sin(math.rad(self.rotation-90))), rotation=self.rotation, speed=self.speed}) -- this refuses to work wtf
@@ -39,9 +41,6 @@ function player:update(dt)
 		self.x = lerp(self.nx, self.x, 0.5)
 		self.y = lerp(self.ny, self.y, 0.5)
 	end
-
-	self.model.rotation = self.rotation
-	self.model.zoom = 0.7
 
 	local loop = false
 	if self.isLocalPlayer then
@@ -82,7 +81,8 @@ end
 function player:draw()
 	self.gracing = false
 	lg.setColor(self.color)
-	self.model:drawModel(self.x+2, self.y+16)
+	self.model.color = self.color
+	self.model:draw(self.x+2 - lg.getWidth()/2, self.y+16-lg.getHeight()/2, 1, math.rad(self.rotation), 1.5, 2)
 
 	for i,v in ipairs(globaltrails) do
 		-- Do collision detection
@@ -122,7 +122,7 @@ function player:drawus()
 
 	local p1,p2 = self.x + 2 - (math.cos(math.rad(self.rotation-90)) * 16), self.y + 16 - (math.sin(math.rad(self.rotation-90)) * 16) -- back
 	local p3,p4 = self.x + 2 + (math.cos(math.rad(self.rotation-90)) * 16), self.y + 16 + (math.sin(math.rad(self.rotation-90)) * 16) -- front
-	lg.line(p1, p2, p3, p4)
+	--lg.line(p1, p2, p3, p4)
 end
 
 
@@ -132,7 +132,7 @@ function player:new(x, y, name)
 	new.x = x;
 	new.y = y;
 	new.name = name;
-	new.model = model_viewer:new(love.filesystem.newFile("assets/newbike.png"));
+	new.model = lovox.model(lovox.modelData("assets/bike"))
 	new.model.layer_spacing = 0.5
 	new.color =  {math.random(100, 200), math.random(100, 200), math.random(100, 200)};
 	new.dcolor = {new.color[1], new.color[2], new.color[3]}

@@ -1,4 +1,5 @@
-local model_viewer = require ("lib.voxel.model_viewer")
+local lovox = require ("lib.lovox")
+local ModelData = lovox.modelData
 
 local wall_class = {
 	x;
@@ -12,7 +13,6 @@ local wall_class = {
 }
 wall_class.__index = wall_class
 
-local wall_model = model_viewer:new(love.filesystem.newFile("assets/trail.png"))
 
 function wall_class:new(x, y, rotation, color, owner)
 	local new = setmetatable({}, wall_class)
@@ -22,25 +22,27 @@ function wall_class:new(x, y, rotation, color, owner)
 	new.color = color
 	new.owner = owner
 	new.id = #globaltrails
+	new.wall_model = lovox.model(ModelData("assets/trail"))--model_viewer:new(love.filesystem.newFile("assets/trail.png"))
 
 	return new
 end
 
+local z = 0
 function wall_class:update(dt)
 	self.timer = self.timer + dt
+	z = math.cos(love.timer.getTime()) * 10
 end
-
 function wall_class:draw()
 
 	if self.timer < 2.8 then
 		self.alpha = lerp(255, self.alpha, 0.98)
 	else
-		self.alpha = lerp(0, self.alpha, 0.5)
+		self.alpha = lerp(0, self.alpha, 0.7)
 	end
 
-	lg.setColor(self.color[1], self.color[2], self.color[3], self.alpha)
-	wall_model.rotation = self.rotation
-	wall_model:drawModel(self.x, self.y)
+	self.wall_model.color = {self.color[1], self.color[2], self.color[3], self.alpha}
+	--wall_model.rotation = self.rotation
+	self.wall_model:draw(self.x-lg.getWidth()/2, self.y-lg.getHeight()/2, 1, math.rad(self.rotation), 2, 2)
 
 	if self.timer > 3 then
 		rem(self)
