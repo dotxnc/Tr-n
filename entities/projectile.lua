@@ -26,11 +26,7 @@ function projectile_class:update(dt)
 	self.timer = self.timer + dt
 	--move
 	self.x = self.x + (math.cos(math.rad(self.rotation-90)) * 6);
-	self.y = self.y + (math.sin(math.rad(self.rotation-90)) * 6);	
-	if self.timer > 3 then
-		self.timer = 3
-		globaltrails:delete(self)
-	end
+	self.y = self.y + (math.sin(math.rad(self.rotation-90)) * 6);
 
 end
 
@@ -39,7 +35,12 @@ function projectile_class:draw()
 	lg.setColor(255,255,255,255);
 	--lg.setColor(self.color[1], self.color[2], self.color[3], self.alpha)
 	projectile_model.rotation = self.rotation
-	projectile_model:drawModel(self.x, self.y)
+	projectile_model:drawModel(self.x, self.y)	
+
+	if self.timer > 1 then
+		self.timer = 0
+		rem(self)
+	end
 
 end
 

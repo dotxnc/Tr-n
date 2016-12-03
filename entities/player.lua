@@ -23,7 +23,7 @@ function player:input(dt)
 		--              isProjectile=true;
 		--              }
 		-- projectile.rotation = self.rotation 
-		globaltrails:insert(projectile:new(self.x+2-(math.cos(math.rad(self.rotation-90))), self.y+16-(math.sin(math.rad(self.rotation-90))), self.rotation, {self.color[1], self.color[2], self.color[3]}, self))
+		table.insert(globaltrails, projectile:new(self.x+2-(math.cos(math.rad(self.rotation-90))), self.y+16-(math.sin(math.rad(self.rotation-90))), self.rotation, { self.color[1], self.color[2], self.color[3] }, self))
 	end
 end
 
@@ -44,7 +44,7 @@ function player:update(dt)
 		--              alpha=0;
 		--              }
 		--trail.rotation = self.rotation 
-		globaltrails:insert(wall:new(self.x+2-(math.cos(math.rad(self.rotation-90))), self.y+16-(math.sin(math.rad(self.rotation-90))), self.rotation, {self.color[1], self.color[2], self.color[3]}, self))
+		table.insert(globaltrails, wall:new(self.x+2-(math.cos(math.rad(self.rotation-90))), self.y+16-(math.sin(math.rad(self.rotation-90))), self.rotation, {self.color[1], self.color[2], self.color[3]}, self))
 	end
 
 	if self.isLocalPlayer then
@@ -93,7 +93,7 @@ function player:draw()
 	lg.setColor(self.color)
 	self.model:drawModel(self.x+2, self.y+16)
 
-	for i,v in globaltrails:ipairs() do
+	for i,v in ipairs(globaltrails) do
 		-- Do collision detection
 		lg.setColor(0, 255, 0)
 		if self.isLocalPlayer then

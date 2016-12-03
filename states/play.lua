@@ -24,13 +24,15 @@ local play = {
 	turnspeed = 350;
 	output = {};
 }
-globaltrails = nil;
+globaltrails = {};
+function rem(t) for i=1,#globaltrails do if globaltrails[i] == t then table.remove(globaltrails, i) end end end
 
 localplayer = player:new(100, 100, "Lumaio")
 localplayer.isLocalPlayer = true
 
+local function sortz(a,b) return a.y < b.y end
+
 function play:init()
-	globaltrails = skiplist.new(512)
 	return play
 end
 
@@ -53,7 +55,8 @@ function play:draw()
 	if #self.output > 10 then table.remove(self.output, 1) end
 	self.gracing = false
 	lg.clear(10, 10, 10)
-	for i,v in globaltrails:ipairs() do
+	table.sort(globaltrails, sortz)
+	for i,v in pairs(globaltrails) do
 		v:update(love.timer.getDelta())
 		v:draw()
 	end
@@ -80,7 +83,7 @@ function play:drawus()
 
 	imgui.Render()
 	localplayer.name = playername
-	lg.print(globaltrails.size, 0, 20)
+	lg.print(#globaltrails, 0, 20)
 end
 
 function play:mousepressed(x, y, b)

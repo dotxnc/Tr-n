@@ -81,8 +81,8 @@ local delete = function(self,value)
 		end
 		chain[level] = node
 	end
-	if value ~= chain[1].next[1].value then
-		return nil, "value not found: "..value
+	if value.y ~= chain[1].next[1].value.y then
+		return nil, "value not found: "..value.y
 	end
  
 	-- remove one link at each level

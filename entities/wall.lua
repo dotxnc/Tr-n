@@ -21,16 +21,13 @@ function wall_class:new(x, y, rotation, color, owner)
 	new.rotation = rotation
 	new.color = color
 	new.owner = owner
+	new.id = #globaltrails
 
 	return new
 end
 
 function wall_class:update(dt)
 	self.timer = self.timer + dt
-	if self.timer > 3 then
-		self.timer = 3
-		globaltrails:delete(self)
-	end
 end
 
 function wall_class:draw()
@@ -45,6 +42,10 @@ function wall_class:draw()
 	wall_model.rotation = self.rotation
 	wall_model:drawModel(self.x, self.y)
 
+	if self.timer > 3 then
+		self.timer = 3
+		rem(self)
+	end
 end
 
 return wall_class
