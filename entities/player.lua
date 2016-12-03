@@ -21,7 +21,7 @@ end
 
 
 function player:update(dt)
-	if self.speed > 550 then self.speed = 650 end
+	if self.speed > 650 then self.speed = 650 end
 	self.time = self.time + dt
 	self.ctime = self.ctime + dt
 	self.lastShoot = self.lastShoot + dt;

@@ -56,6 +56,7 @@ function checkIntersect(l1p1, l1p2, l2p1, l2p2)
 end
 function math.dist(x1,y1, x2,y2) return ((x2-x1)^2+(y2-y1)^2)^0.5 end
 function lerp(a,b,t) return a+(b-a)*t end
+function inradius(x,y,cx,cy,r) return(x - cx)^2 + (y - cy)^2 < r^2 end
 
 math.doLinesIntersect = function( a, b, c, d )
         -- parameter conversion
