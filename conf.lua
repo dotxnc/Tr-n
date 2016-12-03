@@ -1,5 +1,5 @@
 function love.conf(t)
-	t.title = "Tron"
+	t.title = "Not Tron"
 	t.window.width = 1280
 	t.window.height = 720
 	t.window.resizable = false
