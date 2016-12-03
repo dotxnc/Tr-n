@@ -41,7 +41,7 @@ function player:update(dt)
 	end
 
 	self.model.rotation = self.rotation
-	self.model.zoom = 0.7
+	self.model.zoom = 0.5
 
 	local loop = false
 	if self.isLocalPlayer then
@@ -76,7 +76,7 @@ end
 function player:draw()
 	self.gracing = false
 	lg.setColor(self.color)
-	self.model:drawModel(self.x, self.y+16)
+	self.model:drawModel(self.x, self.y)
 
 	for i,v in globaltrails:ipairs() do
 		-- Do collision detection
@@ -86,9 +86,9 @@ function player:draw()
 				local x1,y1 = v.x - math.cos(math.rad(v.rotation-90))*16, v.y - math.sin(math.rad(v.rotation-90))*16
 				local x2,y2 = v.x + math.cos(math.rad(v.rotation-90))*16, v.y + math.sin(math.rad(v.rotation-90))*16
 				local p1,p2 = self.x - (math.cos(math.rad(self.rotation-90)) * 10), self.y + 20 - (math.sin(math.rad(self.rotation-90)) * 10)
-				local p3,p4 = self.x + (math.cos(math.rad(self.rotation-90)) * 16), self.y + 16 + (math.sin(math.rad(self.rotation-90)) * 16)
-				--lg.setColor(255, 0, 0)
-				--lg.line(p1, p2, p3, p4)
+				local p3,p4 = self.x + (math.cos(math.rad(self.rotation-90)) * 10), self.y + 16 + (math.sin(math.rad(self.rotation-90)) * 10)
+				lg.setColor(255, 0, 0)
+				lg.line(p1, p2, p3, p4)
 				if math.doLinesIntersect({x=x1,y=y1}, {x=x2, y=y2}, {x=p1, y=p2}, {x=p3, y=p4}) and v.timer > 0. then
 					self.x = 100
 					self.y = 100
@@ -122,8 +122,7 @@ function player:new(x, y, name)
 	new.x = x;
 	new.y = y;
 	new.name = name;
-	new.model = model_viewer:new(love.filesystem.newFile("assets/newbike.png"));
-	new.model.layer_spacing = 0.5
+	new.model = model_viewer:new(love.filesystem.newFile("assets/bike.png"));
 	new.color =  {math.random(100, 255), math.random(100, 255), math.random(100, 255)};
 	new.dcolor = {new.color[1], new.color[2], new.color[3]}
 	return new
