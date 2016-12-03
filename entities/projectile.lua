@@ -19,6 +19,7 @@ function projectile_class:new(x, y, rotation, color, owner)
 	new.rotation = rotation
 	new.color = color
 	new.owner = owner
+	new.id = #globaltrails
 	return new
 end
 

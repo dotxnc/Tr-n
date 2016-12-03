@@ -30,13 +30,14 @@ function rem(t) for i=1,#globaltrails do if globaltrails[i] == t then table.remo
 localplayer = player:new(100, 100, "Lumaio")
 localplayer.isLocalPlayer = true
 
-local function sortz(a,b) return a.y < b.y end
+local function sortz(a,b) if a.y < b.y then return true elseif a.y==b.y and a.id < b.id then return true else return false end end
 
 function play:init()
 	return play
 end
 
 function play:update(dt)
+	table.sort(globaltrails, sortz)
 	imgui.NewFrame()
 	update_client()
 	update_server()
@@ -55,7 +56,6 @@ function play:draw()
 	if #self.output > 10 then table.remove(self.output, 1) end
 	self.gracing = false
 	lg.clear(10, 10, 10)
-	table.sort(globaltrails, sortz)
 	for i,v in pairs(globaltrails) do
 		v:update(love.timer.getDelta())
 		v:draw()

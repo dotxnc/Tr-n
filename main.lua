@@ -94,6 +94,7 @@ math.doLinesIntersect = function( a, b, c, d )
         return false
 end
 
+
 local scene = lg.newCanvas()
 
 function love.load()
