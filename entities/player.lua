@@ -15,7 +15,7 @@ function player:input(dt)
 	if love.keyboard.isDown("a") then self.rotation = self.rotation - self.turnspeed*dt end
 	if love.mouse.isDown(1) and self.lastShoot > 0.25 then
 		self.lastShoot = 0
-		table.insert(globaltrails, projectile:new(self.x+2-(math.cos(math.rad(self.rotation-90))), self.y+16-(math.sin(math.rad(self.rotation-90))), self.rotation, { self.color[1], self.color[2], self.color[3] }, self))
+		table.insert(globaltrails, projectile:new(self.x+2-(math.cos(math.rad(self.rotation-90))), self.y+16-(math.sin(math.rad(self.rotation-90))), self.rotation, { self.color[1], self.color[2], self.color[3] }, self, self.speed))
 	end
 end
 
