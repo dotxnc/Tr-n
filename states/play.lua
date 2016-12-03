@@ -54,21 +54,8 @@ function play:draw()
 	self.gracing = false
 	lg.clear(10, 10, 10)
 	for i,v in globaltrails:ipairs() do
-		v.timer = v.timer + love.timer.getDelta()
-
-		if v.timer < 2.8 then
-			v.alpha = lerp(255, v.alpha, 0.98)
-		else
-			v.alpha = lerp(0, v.alpha, 0.5)
-		end
-
-		lg.setColor(v.color[1], v.color[2], v.color[3], v.alpha)
-		trail.rotation = v.rotation
-		trail:drawModel(v.x, v.y)
-		if v.timer > 3 then
-			v.timer = 3
-			globaltrails:delete(v)
-		end
+		v:update(love.timer.getDelta())
+		v:draw()
 	end
 
 	localplayer:draw()

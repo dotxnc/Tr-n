@@ -1,4 +1,5 @@
 local model_viewer = require ("lib.voxel.model_viewer")
+local wall = require ("entities.wall")
 
 local player = {
 	x,y,color,dcolor,rotation=0,speed=250,turnspeed=350,model,name,time=0,ctime=0,rtime=0,gracing=false,nx=0,ny=0
@@ -31,7 +32,7 @@ function player:update(dt)
 		             alpha=0;
 		             }
 		trail.rotation = self.rotation 
-		globaltrails:insert(trail)
+		globaltrails:insert(wall:new(self.x+2-(math.cos(math.rad(self.rotation-90))), self.y+16-(math.sin(math.rad(self.rotation-90))), self.rotation, {self.color[1], self.color[2], self.color[3]}, self))
 	end
 
 	if self.isLocalPlayer then
