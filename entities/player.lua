@@ -16,6 +16,7 @@ function player:input(dt)
 	if love.mouse.isDown(1) and self.lastShoot > 0.25 then
 		self.lastShoot = 0
 		table.insert(globaltrails, projectile:new(self.x+2-(math.cos(math.rad(self.rotation-90))), self.y+16-(math.sin(math.rad(self.rotation-90))), self.rotation, { self.color[1], self.color[2], self.color[3] }, self, self.speed))
+		send_client("shoot", {x=self.x+2-(math.cos(math.rad(self.rotation-90))), y = self.y+16-(math.sin(math.rad(self.rotation-90))), rotation=self.rotation, speed=self.speed}) -- this refuses to work wtf
 	end
 end
 

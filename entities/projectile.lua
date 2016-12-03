@@ -12,7 +12,7 @@ projectile_class.__index = projectile_class
 
 local projectile_model = model_viewer:new(love.filesystem.newFile("assets/projectile.png"))
 
-function projectile_class:new(x, y, rotation, color, owner)
+function projectile_class:new(x, y, rotation, color, owner, speed, isdummy)
 	local new = setmetatable({}, projectile_class)
 	new.x = x
 	new.y = y
@@ -20,14 +20,16 @@ function projectile_class:new(x, y, rotation, color, owner)
 	new.color = color
 	new.owner = owner
 	new.id = #globaltrails
+	new.speed = speed;
+	new.isdummy = isdummy or false
 	return new
 end
 
 function projectile_class:update(dt)
 	self.timer = self.timer + dt
 	--move
-	self.x = self.x + (math.cos(math.rad(self.rotation-90)) * 6);
-	self.y = self.y + (math.sin(math.rad(self.rotation-90)) * 6);
+	self.x = self.x + (math.cos(math.rad(self.rotation-90)) * self.speed * dt * 2);
+	self.y = self.y + (math.sin(math.rad(self.rotation-90)) * self.speed * dt * 2);
 
 	local remove=false
 	local rx,ry
@@ -43,7 +45,9 @@ function projectile_class:update(dt)
 		end
 	end
 
+	if self.isdummy then return end
 	if remove then
+		send_client("projectilehit", {x=rx,y=ry,radius=50})
 		for i=#globaltrails,1,-1 do local v=globaltrails[i] if inradius(v.x, v.y, rx, ry, 50) and v.__index == wall.__index then table.remove(globaltrails, i) end i = i + 1 end
 	end
 end

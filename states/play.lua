@@ -27,6 +27,10 @@ local play = {
 globaltrails = {};
 function rem(t) for i=1,#globaltrails do if globaltrails[i] == t then table.remove(globaltrails, i) end end end
 
+local consoleoutput = {}
+local isconsoleopen = true
+function wtc(data) table.insert(consoleoutput, data) end
+
 localplayer = player:new(100, 100, "Lumaio")
 localplayer.isLocalPlayer = true
 
@@ -58,8 +62,10 @@ function play:draw()
 	lg.clear(10, 10, 10)
 	for i=#globaltrails,1,-1 do
 		local v = globaltrails[i]
-		v:update(love.timer.getDelta())
-		v:draw()
+		if v ~= nil then
+			v:update(love.timer.getDelta())
+			v:draw()
+		end
 	end
 
 	localplayer:draw()
@@ -81,6 +87,15 @@ function play:drawus()
 	status, playername = imgui.InputText("Player Name", playername, 32)
 	if (imgui.Button("Start Server")) then start_server(tonumber(port)) end
 	if (imgui.Button("Start Client")) then connect_client(ip, tonumber(port), playername) end
+
+
+	local status = imgui.Begin("Console", isconsoleopen)
+	imgui.BeginChild("output", 0, -30, true)
+	for i,v in ipairs(consoleoutput) do imgui.Text(v, 10, i*10) end
+	imgui.EndChild()
+	local status,text = imgui.InputText("", "", 32)
+	imgui.End()
+
 
 	imgui.Render()
 	localplayer.name = playername

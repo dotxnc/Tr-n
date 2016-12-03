@@ -22,6 +22,12 @@ function start_server(port)
 	server:on("position", function(data, client)
 	          server:emitToAll("position", data)
 	          end)
+	server:on("projectilehit", function(data, client)
+	          server:emitToAllBut(client, "projectilehit", data)
+	          end)
+	server:on("shoot", function(data, client)
+	          server:emitToAllBut(client, "shoot", data)
+	          end)
 end
 
 function update_server()
