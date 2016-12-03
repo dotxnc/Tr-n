@@ -99,7 +99,7 @@ local scene = lg.newCanvas()
 
 function love.load()
 	lg.setNewFont("assets/font.ttf", 16)
-	min_dt = 1/144
+	min_dt = 1/60
 	next_time = love.timer.getTime()
 end
 

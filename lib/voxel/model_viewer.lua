@@ -21,7 +21,7 @@ function ModelViewer:new(file, isVox)
 	    --View
 	    rotation = 0,
 	    layer_spacing = 1,
-	    voxelMode = true,
+	    voxelMode = false,
 	    autoRotate = true,
 	    rotateDir = 1,
 	    flip = false,
