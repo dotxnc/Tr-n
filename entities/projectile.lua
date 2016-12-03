@@ -7,26 +7,28 @@ local projectile_class = {
 	timer=0;
 	id;
 	owner;
+	speed;
 }
 projectile_class.__index = projectile_class
 
 local projectile_model = model_viewer:new(love.filesystem.newFile("assets/projectile.png"))
 
-function projectile_class:new(x, y, rotation, color, owner)
+function projectile_class:new(x, y, rotation, color, owner, speed)
 	local new = setmetatable({}, projectile_class)
 	new.x = x
 	new.y = y
 	new.rotation = rotation
 	new.color = color
 	new.owner = owner
+	new.speed = speed
 	return new
 end
 
 function projectile_class:update(dt)
 	self.timer = self.timer + dt
 	--move
-	self.x = self.x + (math.cos(math.rad(self.rotation-90)) * 6);
-	self.y = self.y + (math.sin(math.rad(self.rotation-90)) * 6);
+	self.x = self.x + (math.cos(math.rad(self.rotation-90)) * self.speed * dt * 2);
+	self.y = self.y + (math.sin(math.rad(self.rotation-90)) * self.speed * dt * 2);
 
 	local remove=false
 	local rx,ry
