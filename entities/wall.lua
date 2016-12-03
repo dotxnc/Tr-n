@@ -42,8 +42,8 @@ function wall_class:draw()
 	wall_model.rotation = self.rotation
 	wall_model:drawModel(self.x, self.y)
 
-	if self.timer > 3 then
-		self.timer = 3
+	if self.timer > 7 then
+		self.timer = 7
 		rem(self)
 	end
 end
