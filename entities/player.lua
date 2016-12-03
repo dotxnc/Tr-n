@@ -65,10 +65,16 @@ function player:update(dt)
 		self.turnspeed = self.turnspeed + 50*dt
 	else
 
-		self.color[1] = lerp(self.color[1], self.dcolor[1], 0.1);
+		self.color[1] = lerp(self.color[1], self.dcolor[1] , 0.1);
 		self.color[2] = lerp(self.color[2], self.dcolor[2], 0.1);
 		self.color[3] = lerp(self.color[3], self.dcolor[3], 0.1);
 	end
+
+
+		self.color[1] = lerp(self.color[1], self.color[1] -25 + math.sin(love.timer.getTime()) * 50, 0.1);
+		self.color[2] = lerp(self.color[2], self.color[2] -25 + math.sin(love.timer.getTime()) * 50, 0.1);
+		self.color[3] = lerp(self.color[3], self.color[3] -25 + math.sin(love.timer.getTime()) * 50, 0.1);
+
 	if self.isLocalPlayer then send_client("position", {x=self.x, y=self.y, rotation=self.rotation, force=loop}) end
 end
 
@@ -127,7 +133,7 @@ function player:new(x, y, name)
 	new.name = name;
 	new.model = model_viewer:new(love.filesystem.newFile("assets/newbike.png"));
 	new.model.layer_spacing = 0.5
-	new.color =  {math.random(100, 255), math.random(100, 255), math.random(100, 255)};
+	new.color =  {math.random(100, 200), math.random(100, 200), math.random(100, 200)};
 	new.dcolor = {new.color[1], new.color[2], new.color[3]}
 	return new
 end
