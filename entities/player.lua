@@ -2,7 +2,7 @@ local model_viewer = require ("lib.voxel.model_viewer")
 local wall = require ("entities.wall")
 local projectile = require("entities.projectile")
 local player = {
-	x,y,color,dcolor,rotation=0,speed=250,turnspeed=350,model,name,time=0,ctime=0,rtime=0,gracing=false,nx=0,ny=0
+	x,y,color,dcolor,rotation=0,speed=250,turnspeed=350,model,name,time=0,ctime=0,rtime=0,gracing=false,nx=0,ny=0,lastShoot=0
 }
 --                RED          ORANGE         YELLOW         GREEN        BLUE         INDIGO        VIOLET
 local rainbow = {{255, 0, 0}, {255, 127, 0}, {255, 255, 0}, {0, 255, 0}, {0, 0, 255}, {75, 0, 130}, {148, 0, 211}}
@@ -13,37 +13,21 @@ player.__index = player
 function player:input(dt)
 	if love.keyboard.isDown("d") then self.rotation = self.rotation + self.turnspeed*dt end
 	if love.keyboard.isDown("a") then self.rotation = self.rotation - self.turnspeed*dt end
-	if love.mouse.isDown(1) then
-		-- 	local projectile = {
-		--              x = self.x - (math.cos(math.rad(self.rotation-90)) * 16);
-		--              y = self.y + 16 - (math.sin(math.rad(self.rotation-90)) * 16);
-		--              color = {self.color[1], self.color[2], self.color[3]};
-		--              timer = 0;
-		--              id = #globaltrails+1;
-		--              isProjectile=true;
-		--              }
-		-- projectile.rotation = self.rotation 
+	if love.mouse.isDown(1) and self.lastShoot > 0.25 then
+		self.lastShoot = 0
 		table.insert(globaltrails, projectile:new(self.x+2-(math.cos(math.rad(self.rotation-90))), self.y+16-(math.sin(math.rad(self.rotation-90))), self.rotation, { self.color[1], self.color[2], self.color[3] }, self))
 	end
 end
 
+
 function player:update(dt)
 	if self.speed > 550 then self.speed = 650 end
-	self.time = self.time + love.timer.getDelta()
-	self.ctime = self.ctime + love.timer.getDelta()
+	self.time = self.time + dt
+	self.ctime = self.ctime + dt
+	self.lastShoot = self.lastShoot + dt;
 	local spawntime = 0.05/(self.speed*1/60)
 	if self.time > spawntime then
 		self.time = 0
-		-- local trail = {
-		--              x = self.x + 2 - (math.cos(math.rad(self.rotation-90)) * 0);
-		--              y = self.y + 16 - (math.sin(math.rad(self.rotation-90)) * 0);
-		--              color = {self.color[1], self.color[2], self.color[3]};
-		--              timer = 0;
-		--              id = #globaltrails+1;
-		--              owner=self;
-		--              alpha=0;
-		--              }
-		--trail.rotation = self.rotation 
 		table.insert(globaltrails, wall:new(self.x+2-(math.cos(math.rad(self.rotation-90))), self.y+16-(math.sin(math.rad(self.rotation-90))), self.rotation, {self.color[1], self.color[2], self.color[3]}, self))
 	end
 

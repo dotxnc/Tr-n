@@ -1,5 +1,5 @@
 local model_viewer = require ("lib.voxel.model_viewer")
-
+local wall = require ("entities.wall")
 local projectile_class = {
 	x;
 	y;
@@ -10,7 +10,7 @@ local projectile_class = {
 }
 projectile_class.__index = projectile_class
 
-local projectile_model = model_viewer:new(love.filesystem.newFile("assets/trail.png"))
+local projectile_model = model_viewer:new(love.filesystem.newFile("assets/projectile.png"))
 
 function projectile_class:new(x, y, rotation, color, owner)
 	local new = setmetatable({}, projectile_class)
@@ -28,7 +28,16 @@ function projectile_class:update(dt)
 	self.x = self.x + (math.cos(math.rad(self.rotation-90)) * 6);
 	self.y = self.y + (math.sin(math.rad(self.rotation-90)) * 6);
 
+	for i,v in ipairs(globaltrails) do
+		if v.__index == wall.__index and v.timer > 0.5 then
+			if math.dist(v.x, v.y, self.x, self.y) < 24 then
+				rem(v)
+			end
+		end
+	end
 end
+
+x, y, z = love.audio.getPosition()
 
 function projectile_class:draw()
 	
@@ -37,7 +46,7 @@ function projectile_class:draw()
 	projectile_model.rotation = self.rotation
 	projectile_model:drawModel(self.x, self.y)	
 
-	if self.timer > 1 then
+	if self.timer > 4 then
 		self.timer = 0
 		rem(self)
 	end
