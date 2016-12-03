@@ -22,11 +22,13 @@ function player:update(dt)
 	if self.time > spawntime then
 		self.time = 0
 		local trail = {
-		             x = self.x - (math.cos(math.rad(self.rotation-90)) * 16);
-		             y = self.y + 16 - (math.sin(math.rad(self.rotation-90)) * 16);
+		             x = self.x + 2 - (math.cos(math.rad(self.rotation-90)) * 0);
+		             y = self.y + 16 - (math.sin(math.rad(self.rotation-90)) * 0);
 		             color = {self.color[1], self.color[2], self.color[3]};
 		             timer = 0;
 		             id = #globaltrails+1;
+		             owner=self;
+		             alpha=0;
 		             }
 		trail.rotation = self.rotation 
 		globaltrails:insert(trail)
@@ -76,20 +78,19 @@ end
 function player:draw()
 	self.gracing = false
 	lg.setColor(self.color)
-	self.model:drawModel(self.x, self.y+16)
+	self.model:drawModel(self.x+2, self.y+16)
 
 	for i,v in globaltrails:ipairs() do
 		-- Do collision detection
 		lg.setColor(0, 255, 0)
 		if self.isLocalPlayer then
-			if math.dist(v.x, v.y, self.x, self.y) < 30 then
+			if v.owner == self and v.timer < 0.25 then goto skip end
+			if math.dist(v.x, v.y, self.x, self.y) < 15 then
 				local x1,y1 = v.x - math.cos(math.rad(v.rotation-90))*16, v.y - math.sin(math.rad(v.rotation-90))*16
 				local x2,y2 = v.x + math.cos(math.rad(v.rotation-90))*16, v.y + math.sin(math.rad(v.rotation-90))*16
-				local p1,p2 = self.x - (math.cos(math.rad(self.rotation-90)) * 10), self.y + 20 - (math.sin(math.rad(self.rotation-90)) * 10)
-				local p3,p4 = self.x + (math.cos(math.rad(self.rotation-90)) * 16), self.y + 16 + (math.sin(math.rad(self.rotation-90)) * 16)
-				--lg.setColor(255, 0, 0)
-				--lg.line(p1, p2, p3, p4)
-				if math.doLinesIntersect({x=x1,y=y1}, {x=x2, y=y2}, {x=p1, y=p2}, {x=p3, y=p4}) and v.timer > 0. then
+				local p1,p2 = self.x + 2 - (math.cos(math.rad(self.rotation-90)) * 16), self.y + 16 - (math.sin(math.rad(self.rotation-90)) * 16) -- back
+				local p3,p4 = self.x + 2 + (math.cos(math.rad(self.rotation-90)) * 16), self.y + 16 + (math.sin(math.rad(self.rotation-90)) * 16) -- front
+				if math.doLinesIntersect({x=x1,y=y1}, {x=x2, y=y2}, {x=p1, y=p2}, {x=p3, y=p4}) and v.timer > 0 then
 					self.x = 100
 					self.y = 100
 					self.speed = 250
@@ -99,6 +100,7 @@ function player:draw()
 				end
 			end
 		end
+		::skip::
 		
 		-- gracing
 		if math.dist(self.x, self.y+8, v.x, v.y-8) <= 24 and v.timer > 0.5 then
@@ -113,6 +115,10 @@ function player:drawus()
 	lg.setColor(255-self.color[1], 255-self.color[2]/2, 255-self.color[3]/2)
 	lg.print(self.name, math.floor(self.x)-lg.getFont():getWidth(self.name)/2, math.floor(self.y)-32)
 	lg.print(self.speed, 0, 50)
+
+	local p1,p2 = self.x + 2 - (math.cos(math.rad(self.rotation-90)) * 16), self.y + 16 - (math.sin(math.rad(self.rotation-90)) * 16) -- back
+	local p3,p4 = self.x + 2 + (math.cos(math.rad(self.rotation-90)) * 16), self.y + 16 + (math.sin(math.rad(self.rotation-90)) * 16) -- front
+	lg.line(p1, p2, p3, p4)
 end
 
 
