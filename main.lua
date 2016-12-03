@@ -102,10 +102,14 @@ function love.load()
 	next_time = love.timer.getTime()
 end
 
+
 maxdt = 1
 function love.update(dt)
-	next_time = next_time + min_dt
 
+  --PRESS F5 to dump performance stats
+  if not ProFI_ENABLED and love.keyboard.isDown("f5") then ProFI_ENABLED = true; ProFI:start(); end
+
+	next_time = next_time + min_dt
 	if dt > 0 then
         local tempdt = dt --you should rename this to something more useful, but for the sake of examples
          if tempdt > maxdt then tempdt = maxdt end
@@ -114,6 +118,8 @@ function love.update(dt)
     end
 end
 
+ProFI = require('lib.ProFI')
+ProFI_ENABLED = false
 
 function love.draw()
 	lg.setCanvas(scene)
@@ -127,11 +133,18 @@ function love.draw()
 	lg.setColor(255, 255, 255)
 	lg.print("FPS: " .. love.timer.getFPS())
 
+  if ProFI_ENABLED then 
+     ProFI:stop()
+     ProFI:writeReport( 'performance.txt' )
+     ProFI_ENABLED=false
+  end
+
 	local cur_time = love.timer.getTime()
 	if next_time <= cur_time then
 		next_time = cur_time
 		return
 	end
+
 	love.timer.sleep(next_time - cur_time)
 end
 
