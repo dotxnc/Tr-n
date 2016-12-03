@@ -27,6 +27,10 @@ end
 
 function wall_class:update(dt)
 	self.timer = self.timer + dt
+	if self.timer > 3 then
+		self.timer = 3
+		globaltrails:delete(self)
+	end
 end
 
 function wall_class:draw()
@@ -40,10 +44,7 @@ function wall_class:draw()
 	lg.setColor(self.color[1], self.color[2], self.color[3], self.alpha)
 	wall_model.rotation = self.rotation
 	wall_model:drawModel(self.x, self.y)
-	if self.timer > 3 then
-		self.timer = 3
-		globaltrails:delete(self)
-	end
+
 end
 
 return wall_class
