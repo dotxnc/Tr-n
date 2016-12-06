@@ -1,4 +1,3 @@
-local model_viewer = require ("lib.voxel.model_viewer")
 local lovox = require ("lib.lovox")
 local wall = require ("entities.wall")
 local projectile_class = {

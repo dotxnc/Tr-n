@@ -82,7 +82,7 @@ function player:draw()
 	self.gracing = false
 	lg.setColor(self.color)
 	self.model.color = self.color
-	self.model:draw(self.x+2, self.y+16, 1, math.rad(self.rotation), 1.5, 2)
+	self.model:draw(self.x, self.y+16, 1, math.rad(self.rotation), 1.5, 2)
 
 	for i,v in ipairs(globaltrails) do
 		-- Do collision detection

@@ -78,7 +78,8 @@ function play:draw()
 	lg.rectangle("line", 1280/2-lovox.camera.x, 720/2-lovox.camera.y, 1280, 720)
 
 	lovox.camera:render()
-	lovox.camera:moveTo(lerp(localplayer.x, lovox.camera.x, 0.94), lerp(localplayer.y, lovox.camera.y, 0.94))
+	lovox.camera:moveTo(lg.getWidth()/2, lg.getHeight()/2)
+	--lovox.camera:moveTo(lerp(localplayer.x, lovox.camera.x, 0.94), lerp(localplayer.y, lovox.camera.y, 0.94))
 end
 
 local text = ""
