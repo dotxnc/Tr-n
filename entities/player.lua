@@ -31,7 +31,7 @@ function player:update(dt)
 	local spawntime = 0.1/(self.speed*1/60)
 	if self.time > spawntime then
 		self.time = 0
-		table.insert(globaltrails, wall:new(self.x-(math.cos(math.rad(self.rotation-90))), self.y+16-(math.sin(math.rad(self.rotation-90))), self.rotation, {self.color[1], self.color[2], self.color[3]}, self))
+		table.insert(globaltrails, wall:new(self.x, self.y+16, self.rotation, {self.color[1], self.color[2], self.color[3]}, self))
 	end
 
 	if self.isLocalPlayer then
