@@ -31,7 +31,7 @@ function player:update(dt)
 	local spawntime = 0.1/(self.speed*1/60)
 	if self.time > spawntime then
 		self.time = 0
-		table.insert(globaltrails, wall:new(self.x+2-(math.cos(math.rad(self.rotation-90))), self.y+16-(math.sin(math.rad(self.rotation-90))), self.rotation, {self.color[1], self.color[2], self.color[3]}, self))
+		table.insert(globaltrails, wall:new(self.x-(math.cos(math.rad(self.rotation-90))), self.y+16-(math.sin(math.rad(self.rotation-90))), self.rotation, {self.color[1], self.color[2], self.color[3]}, self))
 	end
 
 	if self.isLocalPlayer then
@@ -82,7 +82,7 @@ function player:draw()
 	self.gracing = false
 	lg.setColor(self.color)
 	self.model.color = self.color
-	self.model:draw(self.x+2 - lg.getWidth()/2, self.y+16-lg.getHeight()/2, 1, math.rad(self.rotation), 1.5, 2)
+	self.model:draw(self.x+2, self.y+16, 1, math.rad(self.rotation), 1.5, 2)
 
 	for i,v in ipairs(globaltrails) do
 		-- Do collision detection
@@ -134,7 +134,7 @@ function player:new(x, y, name)
 	new.name = name;
 	new.model = lovox.model(lovox.modelData("assets/bike"))
 	new.model.layer_spacing = 0.5
-	new.color =  {math.random(100, 200), math.random(100, 200), math.random(100, 200)};
+	new.color =  {rainbow[#rainbow][math.random(3)], rainbow[#rainbow][math.random(3)], rainbow[#rainbow][math.random(3)]};
 	new.dcolor = {new.color[1], new.color[2], new.color[3]}
 	return new
 end

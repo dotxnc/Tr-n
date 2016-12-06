@@ -27,7 +27,7 @@
 			"file": "main.lua",
 			"settings":
 			{
-				"buffer_size": 5521,
+				"buffer_size": 4628,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -36,7 +36,7 @@
 			"file": "states/play.lua",
 			"settings":
 			{
-				"buffer_size": 3074,
+				"buffer_size": 3282,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -45,16 +45,7 @@
 			"file": "entities/player.lua",
 			"settings":
 			{
-				"buffer_size": 5675,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "entities/wall.lua",
-			"settings":
-			{
-				"buffer_size": 915,
+				"buffer_size": 5596,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -63,7 +54,7 @@
 			"file": "server.lua",
 			"settings":
 			{
-				"buffer_size": 1255,
+				"buffer_size": 1244,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -72,7 +63,16 @@
 			"file": "client.lua",
 			"settings":
 			{
-				"buffer_size": 2001,
+				"buffer_size": 2160,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "entities/wall.lua",
+			"settings":
+			{
+				"buffer_size": 1090,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -81,7 +81,7 @@
 			"file": "entities/projectile.lua",
 			"settings":
 			{
-				"buffer_size": 1753,
+				"buffer_size": 1865,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -203,17 +203,32 @@
 	"expanded_folders":
 	[
 		"/C/Users/Lumaio/Desktop/Projects/Tron",
+		"/C/Users/Lumaio/Desktop/Projects/Tron/assets",
+		"/C/Users/Lumaio/Desktop/Projects/Tron/assets/trail",
 		"/C/Users/Lumaio/Desktop/Projects/Tron/entities",
 		"/C/Users/Lumaio/Desktop/Projects/Tron/lib",
+		"/C/Users/Lumaio/Desktop/Projects/Tron/lib/lovox",
 		"/C/Users/Lumaio/Desktop/Projects/Tron/lib/voxel",
 		"/C/Users/Lumaio/Desktop/Projects/Tron/states"
 	],
 	"file_history":
 	[
+		"/C/Users/Lumaio/Desktop/Projects/Tron/lib/lovox/camera.lua",
+		"/C/Users/Lumaio/Documents/main.lua",
+		"/C/Users/Lumaio/Documents/MINECRAFT SERVER/BuildTools/plugins/TreeAssist/config.yml",
+		"/C/Program Files (x86)/Steam/steamapps/common/Starbound/storage/starbound.config",
+		"/C/Program Files (x86)/Steam/steamapps/common/Starbound/win64/sbinit.config",
+		"/C/Users/Lumaio/Desktop/Projects/Tron/assets/trail/flags.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Tron/lib/lovox/modelData.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Tron/lib/lovox/model.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Tron/client.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Tron/server.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Tron/lib/lovox/init.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Tron/assets/bike/flags.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Tron/entities/wall.lua",
+		"/C/Users/Lumaio/Desktop/Projects/Tron/states/performance.txt",
 		"/C/Users/Lumaio/Desktop/Projects/Tron/entities/performance.txt",
 		"/C/Users/Lumaio/Desktop/Projects/Tron/lib/voxel/performance.txt",
-		"/C/Users/Lumaio/Desktop/Projects/Tron/server.lua",
-		"/C/Users/Lumaio/Desktop/Projects/Tron/client.lua",
 		"/C/Users/Lumaio/Desktop/Projects/Tron/states/play.lua",
 		"/C/Users/Lumaio/Desktop/Projects/Tron/entities/player.lua",
 		"/C/Users/Lumaio/Desktop/Projects/Tron/main.lua",
@@ -235,7 +250,6 @@
 		"/C/Users/Lumaio/Documents/splashes-master/main.lua",
 		"/C/Users/Lumaio/Desktop/Projects/Campfire/inventory.lua",
 		"/C/Users/Lumaio/Desktop/Projects/Campfire/rain.lua",
-		"/C/Users/Lumaio/Documents/main.lua",
 		"/C/Users/Lumaio/Desktop/Projects/Campfire/lib/light/light.lua",
 		"/C/Users/Lumaio/Desktop/Projects/Campfire/states/playstate.lua",
 		"/C/Users/Lumaio/Desktop/Projects/Campfire/main.lua",
@@ -261,6 +275,17 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"true",
+			"plant",
+			"waitFor",
+			".x",
+			"renderModel",
+			"setColor",
+			"love.graphics.setColor",
+			"color",
+			"lovox",
+			"dofile",
+			"33",
 			"]\n",
 			"16",
 			"v.",
@@ -389,7 +414,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -398,15 +423,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5521,
+						"buffer_size": 4628,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1077,
-								1077
+								256,
+								256
 							]
 						],
 						"settings":
@@ -416,10 +441,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 396.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
@@ -428,15 +453,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3074,
+						"buffer_size": 3282,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1398,
-								1398
+								2052,
+								2052
 							]
 						],
 						"settings":
@@ -445,10 +470,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 264.0,
+						"translation.y": 561.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -457,15 +482,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5675,
+						"buffer_size": 5596,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1265,
-								1265
+								5355,
+								5355
 							]
 						],
 						"settings":
@@ -474,85 +499,85 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 66.0,
+						"translation.y": 1122.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "server.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1244,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1157,
+								1157
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua Love/LuaLove.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "client.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2160,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1692,
+								1692
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua Love/LuaLove.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 5,
 					"file": "entities/wall.lua",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 915,
+						"buffer_size": 1090,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								848,
-								848
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Lua Love/LuaLove.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "server.lua",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1255,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1160,
-								1160
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Lua Love/LuaLove.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "client.lua",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2001,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								892,
-								892
+								992,
+								992
 							]
 						],
 						"settings":
@@ -573,15 +598,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1753,
+						"buffer_size": 1865,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								140,
-								140
+								976,
+								976
 							]
 						],
 						"settings":
@@ -593,7 +618,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -623,7 +648,7 @@
 						"translation.y": 3081.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -652,7 +677,7 @@
 						"translation.y": 306.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -682,7 +707,7 @@
 						"translation.y": 253.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 9,
 					"type": "text"
 				}
 			]

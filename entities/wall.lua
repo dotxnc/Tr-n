@@ -10,6 +10,8 @@ local wall_class = {
 	id;
 	owner;
 	alpha=0;
+	z=-10;
+	zt=0;
 }
 wall_class.__index = wall_class
 
@@ -27,10 +29,10 @@ function wall_class:new(x, y, rotation, color, owner)
 	return new
 end
 
-local z = 0
 function wall_class:update(dt)
 	self.timer = self.timer + dt
-	z = math.cos(love.timer.getTime()) * 10
+	self.zt = self.zt + dt
+	self.z = math.cos(self.zt*5) * 20
 end
 function wall_class:draw()
 
@@ -42,7 +44,7 @@ function wall_class:draw()
 
 	self.wall_model.color = {self.color[1], self.color[2], self.color[3], self.alpha}
 	--wall_model.rotation = self.rotation
-	self.wall_model:draw(self.x-lg.getWidth()/2, self.y-lg.getHeight()/2, 1, math.rad(self.rotation), 2, 2)
+	self.wall_model:draw(self.x, self.y, 1, math.rad(self.rotation), 2, 2)
 
 	if self.timer > 3 then
 		rem(self)

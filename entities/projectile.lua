@@ -1,4 +1,5 @@
 local model_viewer = require ("lib.voxel.model_viewer")
+local lovox = require ("lib.lovox")
 local wall = require ("entities.wall")
 local projectile_class = {
 	x;
@@ -10,7 +11,9 @@ local projectile_class = {
 }
 projectile_class.__index = projectile_class
 
-local projectile_model = model_viewer:new(love.filesystem.newFile("assets/projectile.png"))
+--local projectile_model = model_viewer:new(love.filesystem.newFile("assets/projectile.png"))
+
+-- TODO: MOVE TO NEW VOXEL LIBRARY
 
 function projectile_class:new(x, y, rotation, color, owner, speed, isdummy)
 	local new = setmetatable({}, projectile_class)
@@ -22,6 +25,7 @@ function projectile_class:new(x, y, rotation, color, owner, speed, isdummy)
 	new.id = #globaltrails
 	new.speed = speed;
 	new.isdummy = isdummy or false
+	new.model = lovox.model(lovox.modelData("assets/bullet"))
 	return new
 end
 
@@ -56,8 +60,7 @@ function projectile_class:draw()
 	
 	lg.setColor(255,255,255,255);
 	--lg.setColor(self.color[1], self.color[2], self.color[3], self.alpha)
-	projectile_model.rotation = self.rotation
-	projectile_model:drawModel(self.x, self.y)	
+	self.model:draw(self.x, self.y, 1, math.rad(self.rotation), 2, 2)
 
 	if self.timer > 4 then
 		self.timer = 0

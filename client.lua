@@ -44,11 +44,17 @@ function connect_client(ip, port, name)
 	          wtc("[CLIENT] Received projectilehit")
 	          end)
 	client:on("shoot", function(data)
+	          if data.uid == uniqueID then return end
+	          wtc("[CLIENT] Received shoot " .. data.uid .. " " .. uniqueID)
 	          local owner = nil
-	          for i,v in ipairs(players) do if v.uid == data.uid then owner = v return end end
-	          table.insert(globaltrails, projectile:new(data.x, data.y, data.rotation, v.player.color, v, data.speed,true))
+	          for i,v in ipairs(players) do
+	          	if v.uid == data.uid then
+	          		owner = v
+	          		break
+	          	end
+	          end
+	          table.insert(globaltrails, projectile:new(data.x, data.y, data.rotation, owner.player.color, owner.player, data.speed, true))
 	          print("need to create projectile")
-	          wtc("[CLIENT] Received shoot")
 	          end)
 end
 

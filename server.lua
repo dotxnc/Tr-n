@@ -26,7 +26,7 @@ function start_server(port)
 	          server:emitToAllBut(client, "projectilehit", data)
 	          end)
 	server:on("shoot", function(data, client)
-	          server:emitToAllBut(client, "shoot", data)
+	          server:emitToAll("shoot", data)
 	          end)
 end
 

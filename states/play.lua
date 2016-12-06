@@ -74,9 +74,14 @@ function play:draw()
 		v.player:draw()
 	end
 
+	lg.setColor(255, 0, 0)
+	lg.rectangle("line", 1280/2-lovox.camera.x, 720/2-lovox.camera.y, 1280, 720)
+
 	lovox.camera:render()
+	lovox.camera:moveTo(lerp(localplayer.x, lovox.camera.x, 0.94), lerp(localplayer.y, lovox.camera.y, 0.94))
 end
 
+local text = ""
 function play:drawus()
 	localplayer:drawus()
 	for i,v in ipairs(getplayers_client()) do
@@ -86,7 +91,7 @@ function play:drawus()
 	lg.setColor(255, 255, 255)
 	imgui.Text("FUCK", 10, 10)
 	status, ip = imgui.InputText("IP", ip, 15)
-	status, port = imgui.InputText("PORT", port, 6)
+	status, port = imgui.InputInt("PORT", port, 6)
 	status, playername = imgui.InputText("Player Name", playername, 32)
 	if (imgui.Button("Start Server")) then start_server(tonumber(port)) end
 	if (imgui.Button("Start Client")) then connect_client(ip, tonumber(port), playername) end
@@ -96,7 +101,7 @@ function play:drawus()
 	imgui.BeginChild("output", 0, -30, true)
 	for i,v in ipairs(consoleoutput) do imgui.Text(v, 10, i*10) end
 	imgui.EndChild()
-	local status,text = imgui.InputText("", "", 32)
+	status,ntext = imgui.InputText("", "", 32, 0, function(data) return 1 end)
 	imgui.End()
 
 
