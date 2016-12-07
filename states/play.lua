@@ -82,6 +82,7 @@ function play:draw()
 	--lovox.camera:moveTo(lerp(localplayer.x, lovox.camera.x, 0.94), lerp(localplayer.y, lovox.camera.y, 0.94))
 end
 
+local ntext = ""
 local text = ""
 function play:drawus()
 	localplayer:drawus()
@@ -102,7 +103,11 @@ function play:drawus()
 	imgui.BeginChild("output", 0, -30, true)
 	for i,v in ipairs(consoleoutput) do imgui.Text(v, 10, i*10) end
 	imgui.EndChild()
-	status,ntext = imgui.InputText("", "", 32, 0, function(data) return 1 end)
+	status,text = imgui.InputText("", text, 32, {"EnterReturnsTrue"})
+	if status then
+		wtc("> " .. text)
+		text = ""
+	end
 	imgui.End()
 
 
